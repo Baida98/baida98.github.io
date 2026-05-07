@@ -31,11 +31,17 @@
             // If the page is not yet cross-origin-isolated, reload once
             // so the service worker can add the necessary headers.
             if (!window.crossOriginIsolated) {
-              console.log("[COI] Reloading for cross-origin isolation…");
-              window.location.reload();
-            } else {
-              console.log("[COI] crossOriginIsolated =", window.crossOriginIsolated);
-            }
+                if (sessionStorage.getItem("__coi_reloaded__") === "1") {
+                  console.warn("[COI] Already reloaded once; giving up to avoid loop. WebLLM disabled.");
+                } else {
+                  sessionStorage.setItem("__coi_reloaded__", "1");
+                  console.log("[COI] Reloading for cross-origin isolation…");
+                  window.location.reload();
+                }
+              } else {
+                sessionStorage.removeItem("__coi_reloaded__");
+                console.log("[COI] crossOriginIsolated =", window.crossOriginIsolated);
+              }
           })
           .catch(function (err) {
             console.warn("[COI] Service worker registration failed:", err);
