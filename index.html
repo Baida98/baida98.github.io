@@ -1,17 +1,51 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="it">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1" />
-    <title>Il Mio Agente AI</title>
+    <title>Agente AI</title>
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+      <meta name="description" content="Agente AI — assistente autonomo con web search, memoria, esecuzione codice e più provider AI." />
+      <meta name="theme-color" content="#0f0f1a" />
+      <meta property="og:title" content="Agente AI" />
+      <meta property="og:description" content="AI agent autonomo con web search, memoria e multi-AI Pro Mode." />
+      <meta property="og:type" content="website" />
+      <meta name="twitter:card" content="summary" />
+      <meta name="twitter:title" content="Agente AI" />
+      <meta name="apple-mobile-web-app-capable" content="yes" />
+      <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <script type="module" crossorigin src="/assets/index-BYkmbSo0.js"></script>
+
+    <!--
+      Register the COI Service Worker so that SharedArrayBuffer is available
+      on GitHub Pages (which doesn't allow custom COOP/COEP headers).
+      Required for WebLLM / WebGPU to work in-browser.
+    -->
+    <script>
+      if ("serviceWorker" in navigator) {
+        navigator.serviceWorker
+          .register("/coi-serviceworker.js", { scope: "/" })
+          .then(function (reg) {
+            // If the page is not yet cross-origin-isolated, reload once
+            // so the service worker can add the necessary headers.
+            if (!window.crossOriginIsolated) {
+              console.log("[COI] Reloading for cross-origin isolation…");
+              window.location.reload();
+            } else {
+              console.log("[COI] crossOriginIsolated =", window.crossOriginIsolated);
+            }
+          })
+          .catch(function (err) {
+            console.warn("[COI] Service worker registration failed:", err);
+          });
+      }
+    </script>
+    <script type="module" crossorigin src="/assets/index-CieSoFPs.js"></script>
     <link rel="modulepreload" crossorigin href="/assets/vendor-md-D8jg1kVT.js">
     <link rel="modulepreload" crossorigin href="/assets/vendor-react-lp9yGBFQ.js">
-    <link rel="stylesheet" crossorigin href="/assets/index-DrI8zgPL.css">
+    <link rel="stylesheet" crossorigin href="/assets/index-BbFXiSLA.css">
   </head>
   <body>
     <div id="root"></div>
