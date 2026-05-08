@@ -30,8 +30,14 @@
     -->
     <script>
       if ("serviceWorker" in navigator) {
+        // Handle both root domain and subfolder (GitHub Pages)
+        const isGH = window.location.hostname.includes("github.io");
+        const pathParts = window.location.pathname.split("/").filter(Boolean);
+        const base = (isGH && pathParts.length > 0) ? "/" + pathParts[0] : "";
+        const swPath = base + "/coi-serviceworker.js";
+        
         navigator.serviceWorker
-          .register("/coi-serviceworker.js", { scope: "/" })
+          .register(swPath)
           .then(function (reg) {
             // If the page is not yet cross-origin-isolated, reload once
             // so the service worker can add the necessary headers.
